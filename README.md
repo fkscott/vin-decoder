@@ -1,6 +1,6 @@
 # Vin Decoder
 
-Built using the [NTHSA Vehicle API](https://vpic.nhtsa.dot.gov/api/), Svelte, and Node.js
+Built using the [NHTSA Vehicle API](https://vpic.nhtsa.dot.gov/api/), Svelte, and Node.js
 
 
 This is currently just a work in progress, but I would like to add more error checking for vehicle information, along with more unique styling to the frontend.
