@@ -1,13 +1,28 @@
 <script>
+
+	//boolean for loading spinner
+	let hidden = true;
+
+	//
+
 	let vehicleInfo = [];
 	let vinSearch = "";
 	let modelYear = ""
 
+	function toggleSpinner()
+	{
+		hidden = !hidden;
+	}
+
+	//sends our vin and model year to the backend for the API call
 	async function lookupVin(e) {
+		toggleSpinner();
+
 		try{
 			const returnedData = await fetch(`/vindecode?vin=${vinSearch}&modelYear=${modelYear}`)
 			const response = await returnedData.json();
 			vehicleInfo = response.data.Results;
+			toggleSpinner();
 		}
 
 		catch(error){
@@ -16,6 +31,15 @@
 	}
 
 </script>
+
+<style>
+	.bdr{
+		border-radius: 
+		6px;
+		overflow:hidden;
+	}
+</style>
+
 
 <main>
 
@@ -47,7 +71,10 @@
 				<div class="vin-table text-center">
 
 					{#if vehicleInfo.length > 0 }
-					<table class="table table-bordered table-striped">
+					<div class="my-3">
+						<img src="./assets/BodyClassImages/{vehicleInfo[21].ValueId}.png" id="bodyClassIcon" class="img-fluid" alt="Body Class Icon">
+					</div>
+					<table class="table table-bordered table-striped bdr">
 
 					<tbody class="mt-3">
 						<tr>
@@ -83,7 +110,12 @@
 					</table>
 
 					{:else}
-						<h3>No Information to Show</h3>
+						<!-- Spinner that is toggled on the API call -->
+						<div class="text-center mt-5" id="tableSpinner" hidden="{hidden}" >
+							<div class="spinner-border" role="status">
+							  <span class="visually-hidden">Loading...</span>
+							</div>
+						  </div>
 					{/if}
 				</div>
 			</div>
